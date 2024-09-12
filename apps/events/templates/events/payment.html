@@ -1,0 +1,27 @@
+{% extends 'events/partials/_base.html' %}
+{% block content %}
+    <div class="payment-form">
+        <h1>Podsumowanie</h1>
+        Nazwa wydarzenia: {{ registration.event.name }}<br>
+        Data wydarzenia: {{ registration.event.date_start }}<br>
+        {% if registration.selected_bundle %}
+            Wybrany pakiet: {{ registration.selected_bundle.bundle.name }}<br><br>
+            <div class="payment-form__price">Do zapłaty: {{ price }} zł</div>
+        {% endif %}
+        <br>
+
+        {% if not registration.is_paid %}
+            <form method="post">
+                <input class="form-control" type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                {{ form.as_p }}
+                <p class="text-right">
+                    <button class="btn btn-primary" type="submit">Zapłać</button>
+                </p>
+            </form>
+        {% else %}
+            <div class="alert alert-success">
+                <p>Wydarzenie zostało opłacone</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

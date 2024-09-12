@@ -1,0 +1,21 @@
+{% extends 'events/partials/_base.html' %}
+{% load static thumbnail %}
+{% block title %}
+    {{ event.name }}
+{% endblock %}
+{% block content %}
+    {% include 'events/partials/_nav.html' %}
+    {% include 'events/sections/_event.html' %}
+    {% include 'events/sections/_about.html' %}
+    {% if event.event_speakers.all.count > 0 %}
+        {% include 'events/sections/_speakers.html' %}
+    {% endif %}
+    {% include 'events/sections/_plan.html' %}
+    {% if photos|length > 0 %}
+        {% include 'events/sections/_gallery.html' %}
+    {% endif %}
+    {% include 'events/sections/_bundles.html' %}
+    {% include 'events/sections/_join.html' %}
+    {% include 'events/sections/_news_list.html' with show_more=True %}
+    {% include 'events/partials/_footer.html' %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'events/partials/_base.html' %}
+{% load thumbnail %}
+{% block title %}
+{{ news.title }} - {{ event.name }}
+{% endblock %}
+{% block meta %}
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ news.title }}"/>
+    <meta name="description"
+          content="{{ news.entry|striptags }}"/>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:title" content="{{ news.title }}"/>
+    <meta property="og:description"
+          content="{{ news.entry|striptags }}"/>
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% thumbnail news.image 600x400 %}"/>
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="twitter:title" content="{{ news.title }}"/>
+    <meta property="twitter:description"
+          content="{{ news.entry|striptags }}"/>
+    <meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% thumbnail news.image 600x400 %}"/>
+{% endblock %}
+{% block content %}
+
+    {% include 'events/partials/_nav.html' %}
+    <div id="blog-page">
+        <section id="news">
+            <div class="container">
+                <h3>Aktualności</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% if news.image %}
+                            <img class="thumb-post" src="{% thumbnail news.image 600x400 %}" alt="">
+                        {% endif %}
+                        <h1 class="title-post">{{ news.title }}</h1>
+                        <div class="editor-styles">
+                            {{ news.entry|safe }}
+                            {{ news.description|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    {% include 'events/partials/_footer.html' %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% load static thumbnail i18n %}
+
+<div class="py-10">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                {% trans "Plan" %}
+            </h2>
+            <p>{% trans "Detailed plan of the event" %}</p>
+        </div>
+        {% include 'events/components/timeline.html' %}
+
+        {% if videos|length > 0 %}
+            <div class="text-center mb-4">
+                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                    {% trans "Video" %}
+                </h2>
+            </div>
+            <div class="grid grid-cols-4 gap-4">
+                {% for video in videos %}
+                    <div>
+                    <a href="{{ video.iframe_url }}"
+                       class="{% if video.is_vertical %}modal-iframe-vertical{% else %}modal-iframe{% endif %}">
+                        <img src="{% thumbnail video.thumbnail 600x400 %}" alt="{{ video.title }}">
+                    </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{#<section class="plan parallax" id="plan">#}
+{#    <div class="container">#}
+{#        {% if event.plan_items.all.count > 0 %}#}
+{#            <h3></h3>#}
+{#            <p class="text-center"></p>#}
+{#            <div class="swiper-container" id="plan-slider">#}
+{#                <div class="swiper-pages"></div>#}
+{#                <div class="swiper-wrapper">#}
+{#                    <div class="items swiper-slide">#}
+{#                        #}
+{#                            <div class="row item">#}
+{#                                <div class="col-md-4 col-sm-4">#}
+{#                                    <div class="row">#}
+{#                                        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-12 event-avatar text-center">#}
+{#                                            {% if item.image %}#}
+{#                                                <img src="{% thumbnail item.image 125x125 crop %}"#}
+{#                                                     alt=""/>#}
+{#                                            {% elif item.speaker.image %}#}
+{#                                                <img src="{% thumbnail item.speaker.image 125x125 crop %}"#}
+{#                                                     alt="{{ item.speaker.name }}"/>#}
+{#                                            {% else %}#}
+{#                                                <div class="speaker-icon">#}
+{#                                                    <i class="fa fa-users"></i>#}
+{#                                                </div>#}
+{#                                            {% endif %}#}
+{#                                        </div>#}
+{#                                        <div class="col-lg-7 col-md-8 col-sm-8 col-xs-12">#}
+{#                                            <div class="date"></div>#}
+{#                                            <div class="name"></div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="col-md-1 col-sm-1 divider hidden-ms hidden-xs"></div>#}
+{#                                <div class="col-md-7 col-sm-7 col-xs-12 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 text">#}
+{#                                    <h4>{{ item.title }}</h4>#}
+{#                                    <p></p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#        <div>#}
+{#            {% if videos|length > 0 %}#}
+{#                <h3>Wideo</h3>#}
+{#                {% for video in videos %}#}
+{#                    <div class="col-md-4 col-sm-4 col-ms-6 col-xs-12 video-event">#}
+{#                        <a href="{{ video.iframe_url }}"#}
+{#                           class="hover-style-1 {% if video.is_vertical %}modal-iframe-vertical{% else %}modal-iframe{% endif %}">#}
+{#                            <img src="{% thumbnail video.thumbnail 600x400 %}" alt="{{ video.title }}">#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}

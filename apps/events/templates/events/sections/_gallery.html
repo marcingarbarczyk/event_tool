@@ -1,0 +1,23 @@
+{% load static thumbnail i18n %}
+<section>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                {% trans "Previous events" %}
+            </h2>
+        </div>
+        <div class="grid grid-cols-4 gap-4">
+            {% for p in photos %}
+                <div>
+                    <a href="{{ p.image.url }}" class="swipebox hover-style-1 hover-style-1--zoom">
+                        <img src="{% thumbnail p.image 300x300 crop %}" alt="Gallery"
+                             class="full-width"
+                             data-sr-id="9"
+                             style="visibility: visible; transform: translateY(0px) scale(1); opacity: 1; transition: all 0.3s ease 0s;">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>

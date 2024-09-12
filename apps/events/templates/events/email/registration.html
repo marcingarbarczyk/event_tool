@@ -1,0 +1,7 @@
+{% extends 'events/email/_base.html' %}
+{% block content %}
+    Otrzymujesz tego maila, ponieważ zgłosiłaś/eś się do wydarzenia: "{{ registration.event.name }}", które odbędzie się
+    {{ registration.event.date_start }}.<br>
+    Status płatności możesz zweryfikować klikając w poniższy link:<br><br>
+    <a href="{{ url }}">{{ url }}</a>
+{% endblock %}

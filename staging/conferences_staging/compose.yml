@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  web:
+    image: event_tool:latest.dev
+    hostname: event_tool.test
+    healthcheck:
+      test: curl --fail -s http://localhost:80/ || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
+    volumes:
+      - event_tool:/app
+      - event_tool_static:/app/static
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - event_tool_logs:/logs
+    env_file:
+      - envs/.env
+    entrypoint: ["/prod/web/entrypoint.sh", "80"]
+    ports:
+      - "7019:80"
+    networks:
+      - event_tool_network
+
+networks:
+  event_tool_network:
+    external: false
+
+volumes:
+  event_tool:
+    external: true
+  event_tool_static:
+    external: true
+  event_tool_media:
+    external: true
+  event_tool_logs:
+    external: true

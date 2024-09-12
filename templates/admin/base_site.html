@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+    {% if '***REMOVED***' in request.build_absolute_uri or 'dspace' in request.build_absolute_uri %}
+        <style>
+            .production-label {
+                height: 28px;
+                line-height: 30px;
+                padding: 10px;
+                text-align: center;
+                background: yellow;
+                color: black;
+                opacity: 0.7;
+            }
+
+            #header .production-label {
+                position: absolute;
+                left: 290px;
+                top: 0;
+            }
+
+            .breadcrumbs {
+                border-bottom: 5px solid yellow !important;
+            }
+
+            body > .production-label.production-label--fixed {
+                position: fixed;
+                top: 25%;
+                right: -45px;
+                z-index: 9999;
+                transform: rotate(90deg);
+            }
+        </style>
+
+        <script>
+            window.addEventListener('load', (event) => {
+                let productionLabel = document.createElement('div');
+                let fixedProductionLabel = document.createElement('div');
+                let branding = document.getElementById('branding');
+
+                productionLabel.classList.add('production-label');
+                fixedProductionLabel.classList.add('production-label');
+                fixedProductionLabel.classList.add('production-label--fixed');
+                productionLabel.innerText = 'Serwer produkcyjny';
+                fixedProductionLabel.innerText = 'Serwer produkcyjny';
+                branding.after(productionLabel);
+                document.body.appendChild(fixedProductionLabel);
+            });
+        </script>
+    {% endif %}
+{% endblock %}

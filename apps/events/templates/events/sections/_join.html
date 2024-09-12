@@ -1,0 +1,49 @@
+{% load static i18n %}
+<section class="bg-blue-200 py-10">
+    <div class="container">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center">
+               {% trans "Join" %}
+            </h2>
+        {% if registration_form %}
+            <form method="post" class="dynamoform" action="{% url 'registration_create' %}">
+                {% csrf_token %}
+                <input type="hidden" name="form_id" value="{{ event.form.id }}">
+                <h5>Dane kontaktowe</h5>
+                <div>{{ registration_form.name.label_tag }}
+                    {{ registration_form.name }}</div>
+    
+                <div>{{ registration_form.email.label_tag }}
+                    {{ registration_form.email }}</div>
+    
+                <div>{{ registration_form.phone.label_tag }}
+                    {{ registration_form.phone }}</div>
+    
+                <div>{{ registration_form.selected_bundle.label_tag }}
+                    {{ registration_form.selected_bundle }}</div>
+                {% include 'dynamoforms/form.html' %}
+                <div class="checkbox">
+                    {{ registration_form.agreement }}
+                    {{ registration_form.agreement.label_tag }}
+                </div>
+                <button class="btn btn-dark" type="submit">Wyślij</button>
+            </form>
+        {% endif %}
+
+{# Póki są pakiety to ukrywam ceny oparte na datach #}
+{#        <div class="row price-tabs">#}
+{#            {% for event_price in event.event_prices.all %}#}
+{#                <div class="col-sm-6 col-ms-6">#}
+{#                    <div href="#" class="item {% if event_price.price.is_not_active %}not-active{% endif %}">#}
+{#                        <span class="price">{{ event_price.price.price }} zł</span>#}
+{#                        <span class="value">{{ event_price.price.title }}</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+        {% if event.contents %}
+            <div class="conference-contents">
+                {{ event.contents|safe }}
+            </div>
+        {% endif %}
+    </div>
+</section>

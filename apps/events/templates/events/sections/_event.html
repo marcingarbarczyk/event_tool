@@ -1,0 +1,97 @@
+{% load static i18n %}
+<section
+        style="background: url('{{ event.background_image.url }}')"
+        class="flex flex-col py-36 sm:flex-row-reverse bg-blue-200"
+>
+    <div class="container">
+        <div>
+            <h1
+                    class="mb-4 text-3xl font-bold leading-tight dark:text-dark-50 md:text-4xl"
+            >
+                {{ event.name }}
+            </h1>
+            {% if event.introduction %}
+                <p class="mb-8 leading-relaxed text-slate-700 dark:text-slate-400">
+                    {{ event.introduction|safe }}
+                </p>
+            {% endif %}
+        </div>
+        <div>
+            {% if event.show_no_available_places_info %}
+                <div class="no-available-places-box">
+                    <div class="no-available-places-box__icon">
+                        <img src="{% static 'events/images/bell.svg' %}">
+                    </div>
+                    {% trans "No available places" %}
+                </div>
+            {% endif %}
+            <span class="day">{{ event.date_start|date:'d' }}</span>
+            <span class="month">{{ event.start_month_name }} {{ event.date_start|date:'Y' }}</span>
+            {{ event.start }}
+        </div>
+        {% include 'events/sections/_partners.html' %}
+    </div>
+</section>
+<section class="bg-blue-200 py-16">
+    <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-2">{% trans "The event will take place in" %}</div>
+            <div class="md:col-span-1">
+                77 dni:04 godzin:33 minut:00 sekund
+            </div>
+            <div class="md:col-span-1">
+                {% trans "Join" %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{#<section id="slider-full" class="slider-full" data-zs-bullets="false" data-zs-speed="14000" data-zs-interval="10000"#}
+{#         data-zs-switchSpeed="400"#}
+{#         data-zs-src='[""]'#}
+{#         data-zs-overlay="false">#}
+{#    <div class="container">#}
+{#        <div class="content">#}
+{#            <div class="row">#}
+{#                <div class="col-md-2">#}
+{#                    <div class="calendar">#}
+
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-10">#}
+{#                    <h1><span></span></h1>#}
+
+{#                    #}
+{#                        #}
+{#                    {% endif %}#}
+{##}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#</section>#}
+{#<div class="time" id="time">#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-4 col-sm-12">#}
+{#                <div class="header"></div>#}
+{#            </div>#}
+{#            <div class="col-md-6 col-sm-12">#}
+{#                <div class="days clearfix" id="daysCountDown" data-date="">#}
+{#                    <span>%D <span>{% trans "days" %}</span></span>#}
+{#                    <span class="divider">:</span>#}
+{#                    <span>%H <span>{% trans "hours" %}</span></span>#}
+{#                    <span class="divider">:</span>#}
+{#                    <span>%M <span>{% trans "minutes" %}</span></span>#}
+{#                    <span class="divider">:</span>#}
+{#                    <span>%S <span>{% trans "seconds" %}</span></span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col-md-2 col-sm-12">#}
+{#                <a href="#join" class="btn btn-white"></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}

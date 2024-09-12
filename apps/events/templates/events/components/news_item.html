@@ -1,0 +1,18 @@
+{% load static thumbnail i18n %}
+
+<article><a href="{% url 'blog_detail' n.slug %}" class="photo">
+    {% if n.image %}
+        <img src="{% thumbnail n.image 370x260 crop %}" alt="" class="full-width">
+    {% else %}
+        <img src="{% static 'events/images/default_370.jpg' %}" alt=""
+             class="full-width">
+    {% endif %}
+    <span class="date">{{ n.date|date:'d' }}<span>{{ n.date|date:'b' }}</span></span>
+</a>
+    <div class="descr">
+        <a href="{% url 'blog_detail' n.slug %}"><h5>{{ n.title }}</h5></a>
+        <p>{{ n.entry|safe }}</p>
+        <a href="{% url 'blog_detail' n.slug %}" class="more">{% trans "Read more" %} <span
+                class="fa fa-chevron-right"></span></a>
+    </div>
+</article>

@@ -1,0 +1,37 @@
+{% for section in event.form.sections.all %}
+    {% if section.is_active %}
+        <div data-field="{{ section.field_choice.field.name }}"
+             data-field-choice="{% if section.field_choice %}{{ section.field_choice.id }}{% endif %}">
+            {% if section.name %}
+                <h5>{{ section.name }}</h5>
+            {% endif %}
+            {% for field in section.fields.all %}
+                {% if field.is_active %}
+                    <div>
+                    <label for="{{ field.name }}_label">
+                        {{ field.label }}
+                        {% if field.required %}
+                            *
+                        {% endif %}
+                        :
+                    </label>
+                    {% if field.field_type == 'select' %}
+                        <div class="radio">
+                            {% for choice in field.choices.all %}
+                                {% if choice.is_active %}
+                                    <label>
+                                        <input type="radio" name="{{ field.name }}" value="{{ choice.id }}" {% if field.required %}class="required" required{% endif %}>
+                                        {{ choice.choice }}
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% elif field.field_type == 'text' %}
+                        <input class="form-control {% if field.required %}required{% endif %}" type="text" id="{{ field.name }}_label" name="{{ field.name }}" {% if field.required %}required{% endif %} />
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,21 @@
+{% load thumbnail %}
+{% if event.event_partners.all.count %}
+    <div class="bg-blue-400">
+        <p>{{ event.partners_text }}</p>
+        {% for event_partner in event.event_partners.all %}
+            <div>
+                {% if event_partner.partner.url %}
+                    <a href="{{ event_partner.partner.url }}" target="_blank">
+                        <img src="{% thumbnail event_partner.partner.image 205x70 %}"
+                             alt="{{ event_partner.partner.name }}"
+                             style="max-width: 100%; height: auto;">
+                    </a>
+                {% else %}
+                    <img src="{% thumbnail event_partner.partner.image 205x70 %}"
+                         alt="{{ event_partner.partner.name }}"
+                         style="max-width: 100%; height: auto;">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

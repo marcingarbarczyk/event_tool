@@ -1,0 +1,13 @@
+{% extends 'events/email/_base.html' %}
+{% block content %}
+    Nowe zgłoszenie:<br>
+    {{ registration.email }}<br>
+    {{ registration.name }}<br>
+    {{ registration.phone }}<br>
+    {{ registration.selected_bundle.bundle.name }}<br>
+    Kod rabatowy: {{ registration.selected_code_discount.code }}
+    <h5>Ankieta</h5>
+    {% for answer in answers %}
+        {{ answer.field.label }}: {{ answer.answer }}<br>
+    {% endfor %}
+{% endblock %}

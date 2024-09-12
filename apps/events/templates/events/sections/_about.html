@@ -1,0 +1,119 @@
+{% load i18n %}
+
+
+<div>
+    <div class="pt-12 sm:pt-20">
+        <div class="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                {% if event.plan_items.all.count == 0 %}
+                    <h5>{% trans "THE DETAILED PLAN AND TOPICS OF THE CONFERENCE WILL BE PRESENTED SOON" %}</h5>
+                {% endif %}
+
+                <div href="#" class="map-marker">{{ event.place }}, {{ event.city }}, {{ event.address }}</div>
+                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                    {% trans "About" %}
+                </h2>
+                {{ event.description|safe }}
+            </div>
+        </div>
+        <div class="pb-12 mt-10 sm:pb-16">
+            <div class="relative">
+                <div class="absolute inset-0 h-1/2"></div>
+                <div class="relative max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto">
+                        <dl class="bg-white dark:bg-gray-800 rounded-lg shadow-lg sm:grid sm:grid-cols-3">
+                            {% if event.event_counters.all.count > 0 %}
+                                {% for event_counter in event.event_counters.all %}
+
+                                    <div
+                                            class="flex flex-col p-6 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r">
+                                        <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400"
+                                            id="item-1">
+                                            {{ event_counter.counter.title }}
+                                        </dt>
+                                        <dd class="order-1 text-5xl font-extrabold leading-none text-indigo-600 dark:text-indigo-100"
+                                            aria-describedby="item-1" id="starsCount">
+                                            {{ event_counter.counter.value }}
+                                        </dd>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    Event movie:
+    {{ event.promo_movie_html|safe }}
+</div>
+
+<script>
+    const targets = [
+        {element: document.getElementById('starsCount'), count: 4670, suffix: '+'},
+        {element: document.getElementById('downloadsCount'), count: 80000, suffix: '+'},
+        {element: document.getElementById('sponsorsCount'), count: 100, suffix: '+'}
+    ];
+
+    // Find the maximum count among all targets
+    const maxCount = Math.max(...targets.map(target => target.count));
+
+    // Function to animate count-up effect
+    function animateCountUp(target, duration) {
+        let currentCount = 0;
+        const increment = Math.ceil(target.count / (duration / 10));
+
+        const interval = setInterval(() => {
+            currentCount += increment;
+            if (currentCount >= target.count) {
+                clearInterval(interval);
+                currentCount = target.count;
+                target.element.textContent = currentCount + target.suffix;
+            } else {
+                target.element.textContent = currentCount;
+            }
+        }, 10);
+    }
+
+    // Animate count-up for each target with adjusted duration
+    targets.forEach(target => {
+        animateCountUp(target, maxCount / 100); // Adjust duration based on max count
+    });
+</script>
+
+
+{#<section class="about" id="about">#}
+{#    <div class="container">#}
+
+{##}
+
+{##}
+
+{#            <div class="row stat" id="countUp">#}
+{#                {% if event.max_registrations %}#}
+{#                    {% for event_counter in event.event_counters.all %}#}
+{#                        <div class="col-md-2 col-sm-6">#}
+{#                                <span class="number"#}
+{#                                      id="countUp-{{ forloop.counter }}">{{ event_counter.counter.value }}</span>#}
+{#                            <span class="header">{{ event_counter.counter.title }}</span>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{##}
+{#                    <div class="col-md-2 col-sm-6">#}
+{#                        <span class="number" id="countUp-free">{{ event.registrations_remaining_count }}</span>#}
+{#                        <span class="header">wolnych miejsc</span>#}
+{#                    </div>#}
+{#                    </div>#}
+{#                {% else %}#}
+
+{#                {% endif %}#}
+{#        {% endif %}#}
+{#        {% if event.promo_movie_html %}#}
+{#            <div class="row">#}
+{#                <div class="col-md-12">#}
+
+{#                </div>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    </div>#}
+{#</section>#}

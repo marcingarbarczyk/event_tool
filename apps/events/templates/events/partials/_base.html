@@ -1,0 +1,48 @@
+{% load static thumbnail compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    {% compress css %}
+    <link rel="stylesheet"
+        href="{% static 'src/output.css' %}">
+
+    {% endcompress %}
+
+
+    {% block meta %}
+
+    {% endblock %}
+
+    <script>
+        const csrf_token = "{{ csrf_token }}";
+        let ad_user_data = 'denied';
+        let ad_personalization = 'denied';
+        let ad_storage = 'denied';
+        let analytics_storage = 'denied';
+    </script>
+
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+{% compress js %}
+<script src="{% static 'cookieconsent/cookieconsent.umd.js' %}"></script>
+<script src="{% static 'cookieconsent/cookieconsent-config.js' %}"></script>
+{% endcompress %}
+
+
+
+
+</body>
+</html>
