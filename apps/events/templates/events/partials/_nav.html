@@ -2,12 +2,12 @@
 
 
 <!-- Navigation -->
-<nav class="bg-purple-700 py-4">
+<nav class="py-4 absolute w-full top-0 {{ bg_color }}">
     <div class="container flex justify-between items-center">
 
         <!-- Logo -->
         <div class="text-2xl font-bold">
-            <a class="logo" href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>
+            <a href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>
         </div>
 
         <!-- Menu Toggle for mobile -->
@@ -22,11 +22,15 @@
         </div>
 
         <!-- Menu Items -->
-        <div id="menu" class="hidden md:flex space-x-6">
-            <a href="#" class="hover:underline">Home</a>
-            <a href="#" class="hover:underline">About</a>
-            <a href="#" class="hover:underline">Services</a>
-            <a href="#" class="hover:underline">Contact</a>
+        <div id="menu" class="hidden md:flex">
+            <ul class="space-x-6 text-white flex">
+                <li><a href="#partners" class="hover:text-rose-600">{% trans "Partners" %}</a></li>
+                <li><a href="#about" class="hover:text-rose-600">{% trans "About" %}</a></li>
+                <li><a href="#speakers" class="hover:text-rose-600">{% trans "Speakers" %}</a></li>
+                <li><a href="#plan" class="hover:text-rose-600">{% trans "Plan" %}</a></li>
+                <li><a href="#join" class="hover:text-rose-600">{% trans "Join" %}</a></li>
+                <li><a href="#news" class="hover:text-rose-600">{% trans "News" %}</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -39,75 +43,3 @@
         menu.classList.toggle('hidden');
     });
 </script>
-
-
-{#<nav class="navbar navbar-fixed-top" id="nav-wrapper">#}
-{#    <div class="container">#}
-{#        <div class="navbar-header">#}
-{#            <a class="logo" href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>#}
-{#            <button type="button" class="navbar-toggle collapsed">#}
-{#                <span class="sr-only">Toggle navigation</span>#}
-{#                <span class="icon-bar top-bar"></span>#}
-{#                <span class="icon-bar middle-bar"></span>#}
-{#                <span class="icon-bar bottom-bar"></span>#}
-{#            </button>#}
-{#        </div>#}
-{#        <div id="navbar" class="navbar-collapse collapse">#}
-{#            <button type="button" class="navbar-toggle collapsed">#}
-{#                <span class="sr-only">Toggle navigation</span>#}
-{#                <span class="icon-bar top-bar"></span>#}
-{#                <span class="icon-bar middle-bar"></span>#}
-{#                <span class="icon-bar bottom-bar"></span>#}
-{#            </button>#}
-{#            <ul class="nav navbar-nav">#}
-{#                <li><a href="{{ request.scheme }}://{{ request.get_host }}/#about">{% trans "About" %}</a></li>#}
-{#                {% if event.event_speakers.all.count > 0 %}#}
-{#                    <li><a href="{{ request.scheme }}://{{ request.get_host }}/#speakers">{% trans "Speakers" %}</a></li>#}
-{#                {% endif %}#}
-{#                {% if event.plan_items.all.count > 0 %}#}
-{#                    <li><a href="{{ request.scheme }}://{{ request.get_host }}/#plan">{% trans "Plan" %}</a></li>#}
-{#                {% endif %}#}
-{#                <li><a href="{{ request.scheme }}://{{ request.get_host }}/#join">{% trans "Join" %}</a></li>#}
-{#                {% if event.not_featured_partners.count > 0 %}#}
-{#                    <li><a href="{{ request.scheme }}://{{ request.get_host }}/#sponsors">{% trans "Partners" %}</a></li>#}
-{#                {% endif %}#}
-{#                <li id="featured-item"><a href="{% url 'blog' %}">{% trans "Blog" %}</a></li>#}
-{#                {% if event.facebook_link %}#}
-{#                    <li class="social-icon">#}
-{#                        <a href="{{ event.facebook_link }}" target="_blank">#}
-{#                            <i class="fa fa-facebook"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#                {% if event.youtube_link %}#}
-{#                    <li class="social-icon">#}
-{#                        <a href="{{ event.youtube_link }}" target="_blank">#}
-{#                            <i class="fa fa-youtube"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#                {% if event.x_link %}#}
-{#                    <li class="social-icon">#}
-{#                        <a href="{{ event.x_link }}" target="_blank">#}
-{#                            <i class="fa fa-twitter"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#                {% if event.instagram_link %}#}
-{#                    <li class="social-icon">#}
-{#                        <a href="{{ event.instagram_link }}" target="_blank">#}
-{#                            <i class="fa fa-instagram"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#                {% if event.tiktok_link %}#}
-{#                    <li class="social-icon">#}
-{#                        <a href="{{ event.tiktok_link }}" target="_blank">#}
-{#                            <i class="fa fa-tiktok"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#            </ul>#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}

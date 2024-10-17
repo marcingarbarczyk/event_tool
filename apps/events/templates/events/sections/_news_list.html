@@ -1,62 +1,47 @@
 {% load static thumbnail i18n %}
 
-<section class="py-10">
+<section id="news" class="py-20 mt-8">
     <div class="container">
-        <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center">
-           {% trans "News" %}
+        <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center mb-8">
+            {% trans "News" %}
         </h2>
-        <div class="grid grid-cols-3 gap-4">
-        {% for n in news %}
-            {% include 'events/components/news_item.html' %}
-        {% endfor %}
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for n in news %}
+                {% include 'events/components/news_item.html' %}
+            {% endfor %}
         </div>
+        {% if show_more %}
+            <div class="row">
+                <div class="mt-9 text-center">
+                    <a href="{% url 'blog' %}" class="bg-pink-500 w-full mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{% trans "More" %}</a>
+                </div>
+            </div>
+        {% else %}
+            {% for item in object_list %}
+                <!-- Display each item... -->
+            {% endfor %}
+            <div class="pagination">
+
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" class="btn btn-blue btn-sm">&laquo; {% trans "first" %}</a>
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           class="btn btn-blue btn-sm">{% trans "previous page" %}</a>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="btn btn-blue btn-sm">{% trans "next page" %}</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}"
+                           class="btn btn-blue btn-sm">&raquo; {% trans "last" %}</a>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="text-center">
+                <span class="current-page">
+                    {% trans "Page" %} {{ page_obj.number }} {% trans "from" %} {{ page_obj.paginator.num_pages }}.
+                </span>
+            </div>
+        {% endif %}
     </div>
 </section>
-
-{##}
-{#<section id="news">#}
-{#    <div class="container">#}
-{#        <h3>{% trans "News" %}</h3>#}
-{#        <div class="row news">#}
-
-{#                <div class="col-md-4 col-sm-6">#}
-{#                    <div class="item matchHeight">#}
-
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
-{#        {% if show_more %}#}
-{#            <div class="row">#}
-{#                <div class="col-md-12 text-center">#}
-{#                    <a href="{% url 'blog' %}" class="btn btn-blue">{% trans "More" %}</a>#}
-{#                </div>#}
-{#            </div>#}
-{#        {% else %}#}
-{#            {% for item in object_list %}#}
-{#                <!-- Display each item... -->#}
-{#            {% endfor %}#}
-{#            <div class="pagination">#}
-{##}
-{#                <span class="step-links">#}
-{#                    {% if page_obj.has_previous %}#}
-{#                        <a href="?page=1" class="btn btn-blue btn-sm">&laquo; {% trans "first" %}</a>#}
-{#                        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-blue btn-sm">{% trans "previous page" %}</a>#}
-{#                    {% endif %}#}
-{##}
-{#                    {% if page_obj.has_next %}#}
-{#                        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-blue btn-sm">{% trans "next page" %}</a>#}
-{#                        <a href="?page={{ page_obj.paginator.num_pages }}"#}
-{#                           class="btn btn-blue btn-sm">&raquo; {% trans "last" %}</a>#}
-{#                    {% endif %}#}
-{#                </span>#}
-{#            </div>#}
-{#            <div class="text-center">#}
-{#                <span class="current-page">#}
-{#                    {% trans "Page" %} {{ page_obj.number }} {% trans "from" %} {{ page_obj.paginator.num_pages }}.#}
-{#                </span>#}
-{#            </div>#}
-{#        {% endif %}#}
-{#    </div>#}
-{#</section>#}

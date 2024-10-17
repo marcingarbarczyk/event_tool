@@ -16,8 +16,8 @@ urlpatterns = [
     path('registration_create', RegistrationCreateView.as_view(), name='registration_create'),
     path('registration/<str:unique_code>/', RegistrationDetailView.as_view(), name='registration_detail'),
     path('registration_success/', RegistrationSuccessTemplateView.as_view(), name='registration_success'),
-    path('regulamin/', RegulationsView.as_view(), name='regulations'),
-    path('polityka-prywatnosci/', PrivacyPolicyView.as_view(), name='privacy_policy'),
+    path('regulations/', RegulationsView.as_view(), name='regulations'),
+    path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacy_policy'),
     path('blog/<str:slug>/', BlogDetailView.as_view(), name='blog_detail'),
     path('blog/', BlogView.as_view(), name='blog'),
 ]

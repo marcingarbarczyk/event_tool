@@ -7,6 +7,9 @@ module.exports = {
         center: true,
         padding: '2rem', // Default padding for the container
       },
+      minHeight: {
+        '500px': '500px'
+      }
     },
     screens: {
       sm: '480px', // Small screens

@@ -1,14 +1,14 @@
 {% load thumbnail %}
 {% if event.event_partners.all.count %}
-    <div class="bg-blue-400">
-        <p>{{ event.partners_text }}</p>
+    <div id="partners" class="mt-10">
+        <p class="text-center text-2xl mb-5">{{ event.partners_text }}</p>
+        <div class="flex flex-wrap justify-center">
         {% for event_partner in event.event_partners.all %}
-            <div>
+            <div class="m-2">
                 {% if event_partner.partner.url %}
                     <a href="{{ event_partner.partner.url }}" target="_blank">
                         <img src="{% thumbnail event_partner.partner.image 205x70 %}"
-                             alt="{{ event_partner.partner.name }}"
-                             style="max-width: 100%; height: auto;">
+                             alt="{{ event_partner.partner.name }}">
                     </a>
                 {% else %}
                     <img src="{% thumbnail event_partner.partner.image 205x70 %}"
@@ -17,5 +17,6 @@
                 {% endif %}
             </div>
         {% endfor %}
+        </div>
     </div>
 {% endif %}

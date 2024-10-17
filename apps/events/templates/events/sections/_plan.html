@@ -1,6 +1,6 @@
 {% load static thumbnail i18n %}
 
-<div class="py-10">
+<section id="plan" class="py-20">
     <div class="container">
         <div class="text-center mb-4">
             <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
@@ -8,27 +8,29 @@
             </h2>
             <p>{% trans "Detailed plan of the event" %}</p>
         </div>
+
+
         {% include 'events/components/timeline.html' %}
 
         {% if videos|length > 0 %}
-            <div class="text-center mb-4">
-                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+            <div class="text-center mb-4 mt-8">
+                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 mb-8">
                     {% trans "Video" %}
                 </h2>
             </div>
             <div class="grid grid-cols-4 gap-4">
                 {% for video in videos %}
                     <div>
-                    <a href="{{ video.iframe_url }}"
-                       class="{% if video.is_vertical %}modal-iframe-vertical{% else %}modal-iframe{% endif %}">
-                        <img src="{% thumbnail video.thumbnail 600x400 %}" alt="{{ video.title }}">
-                    </a>
+                        <a href="{{ video.iframe_url }}"
+                           class="{% if video.is_vertical %}modal-iframe-vertical{% else %}modal-iframe{% endif %}">
+                            <img src="{% thumbnail video.thumbnail 600x400 %}" alt="{{ video.title }}">
+                        </a>
                     </div>
                 {% endfor %}
             </div>
         {% endif %}
     </div>
-</div>
+</section>
 
 
 {#<section class="plan parallax" id="plan">#}

@@ -454,6 +454,11 @@ class Event(models.Model):
         blank=True,
         verbose_name=_('promotional video iframe'),
     )
+    footer_text = RichTextUploadingField(
+        null=True,
+        blank=True,
+        verbose_name=_('footer text'),
+    )
 
     @staticmethod
     def current():

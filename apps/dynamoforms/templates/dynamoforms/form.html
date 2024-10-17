@@ -1,9 +1,9 @@
 {% for section in event.form.sections.all %}
     {% if section.is_active %}
-        <div data-field="{{ section.field_choice.field.name }}"
+        <div class="mb-8" data-field="{{ section.field_choice.field.name }}"
              data-field-choice="{% if section.field_choice %}{{ section.field_choice.id }}{% endif %}">
             {% if section.name %}
-                <h5>{{ section.name }}</h5>
+                <h5 class="text-2xl">{{ section.name }}</h5>
             {% endif %}
             {% for field in section.fields.all %}
                 {% if field.is_active %}

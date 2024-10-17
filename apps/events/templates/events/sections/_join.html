@@ -1,23 +1,47 @@
 {% load static i18n %}
-<section class="bg-blue-200 py-10">
+<section id="join" class="bg-blue-200 py-10">
     <div class="container">
-            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center">
-               {% trans "Join" %}
-            </h2>
+        <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center">
+            {% trans "Join" %}
+        </h2>
         {% if registration_form %}
-            <form method="post" class="dynamoform" action="{% url 'registration_create' %}">
+            <form method="post" class="max-w-md mx-auto" action="{% url 'registration_create' %}">
                 {% csrf_token %}
                 <input type="hidden" name="form_id" value="{{ event.form.id }}">
-                <h5>Dane kontaktowe</h5>
-                <div>{{ registration_form.name.label_tag }}
-                    {{ registration_form.name }}</div>
-    
-                <div>{{ registration_form.email.label_tag }}
-                    {{ registration_form.email }}</div>
-    
-                <div>{{ registration_form.phone.label_tag }}
-                    {{ registration_form.phone }}</div>
-    
+
+                <div class="mb-4">
+                    <label for="{{ registration_form.name.id_for_label }}"
+                           class="block text-gray-700 text-sm font-bold mb-2">
+                        Name:
+                    </label>
+                    {{ registration_form.name }}
+                    {% if registration_form.name.errors %}
+                        <p class="text-red-500 text-xs italic">{{ registration_form.name.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
+                    <label for="{{ registration_form.email.id_for_label }}"
+                           class="block text-gray-700 text-sm font-bold mb-2">
+                        E-mail:
+                    </label>
+                    {{ registration_form.email }}
+                    {% if registration_form.email.errors %}
+                        <p class="text-red-500 text-xs italic">{{ registration_form.email.errors }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
+                    <label for="{{ registration_form.phone.id_for_label }}"
+                           class="block text-gray-700 text-sm font-bold mb-2">
+                        Phone:
+                    </label>
+                    {{ registration_form.phone }}
+                    {% if registration_form.phone.errors %}
+                        <p class="text-red-500 text-xs italic">{{ registration_form.phone.errors }}</p>
+                    {% endif %}
+                </div>
+
                 <div>{{ registration_form.selected_bundle.label_tag }}
                     {{ registration_form.selected_bundle }}</div>
                 {% include 'dynamoforms/form.html' %}
@@ -25,21 +49,25 @@
                     {{ registration_form.agreement }}
                     {{ registration_form.agreement.label_tag }}
                 </div>
-                <button class="btn btn-dark" type="submit">Wyślij</button>
+                <div class="text-center">
+                    <button class="bg-pink-500 w-full mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                        {% trans "Send" %}
+                    </button>
+                </div>
             </form>
         {% endif %}
 
-{# Póki są pakiety to ukrywam ceny oparte na datach #}
-{#        <div class="row price-tabs">#}
-{#            {% for event_price in event.event_prices.all %}#}
-{#                <div class="col-sm-6 col-ms-6">#}
-{#                    <div href="#" class="item {% if event_price.price.is_not_active %}not-active{% endif %}">#}
-{#                        <span class="price">{{ event_price.price.price }} zł</span>#}
-{#                        <span class="value">{{ event_price.price.title }}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
+        {# Póki są pakiety to ukrywam ceny oparte na datach #}
+        {#        <div class="row price-tabs">#}
+        {#            {% for event_price in event.event_prices.all %}#}
+        {#                <div class="col-sm-6 col-ms-6">#}
+        {#                    <div href="#" class="item {% if event_price.price.is_not_active %}not-active{% endif %}">#}
+        {#                        <span class="price">{{ event_price.price.price }} zł</span>#}
+        {#                        <span class="value">{{ event_price.price.title }}</span>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            {% endfor %}#}
+        {#        </div>#}
         {% if event.contents %}
             <div class="conference-contents">
                 {{ event.contents|safe }}

@@ -27,25 +27,18 @@
 {% endblock %}
 {% block content %}
 
-    {% include 'events/partials/_nav.html' %}
-    <div id="blog-page">
-        <section id="news">
-            <div class="container">
-                <h3>Aktualności</h3>
-                <div class="row">
-                    <div class="col-md-12">
-                        {% if news.image %}
-                            <img class="thumb-post" src="{% thumbnail news.image 600x400 %}" alt="">
-                        {% endif %}
-                        <h1 class="title-post">{{ news.title }}</h1>
-                        <div class="editor-styles">
-                            {{ news.entry|safe }}
-                            {{ news.description|safe }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    {% include 'events/partials/_nav.html' with bg_color='bg-gray-800' %}
+
+    <div class="container py-20 mt-8">
+        {% if news.image %}
+            <img class="float-right ml-4 mb-4" src="{% thumbnail news.image 600x400 %}" alt="">
+        {% endif %}
+        <h1 class="text-4xl font-bold mb-4">{{ news.title }}</h1>
+        <div class="editor-styles">
+            {{ news.entry|safe }}
+            {{ news.description|safe }}
+        </div>
     </div>
+
     {% include 'events/partials/_footer.html' %}
 {% endblock %}

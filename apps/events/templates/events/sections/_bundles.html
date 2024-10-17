@@ -1,8 +1,8 @@
 {% load static %}
 
-<section class="py-10">
+<section class="py-20">
     <div class="container">
-        <div class="flex justify-center">
+        <div class="flex justify-center flex-wrap">
             {% for bundle in event.active_bundles.all %}
                 {% include 'events/components/pricing_table.html' %}
             {% endfor %}
@@ -22,9 +22,9 @@
 {#                    WYPRZEDANE#}
 {#                </div>#}
 {#            {% endif %}#}
-{#            <p>{{ bundle.bundle.name }}</p>#}
+{#            <p></p>#}
 {#            <div class="price">#}
-{#                <div class="big">{{ bundle.active_price.price|floatformat }} zł</div>#}
+{#                <div class="big"> zł</div>#}
 {#            </div>#}
 {#            {{ bundle.content|safe }}#}
 {#        </div>#}

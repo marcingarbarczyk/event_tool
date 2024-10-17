@@ -1,152 +1,146 @@
-<footer class="mt-28 bg-slate-50 dark:bg-black">
-  <div
-    class="container mx-auto flex flex-col items-start space-y-12 px-8 pb-8 pt-12 md:flex-row md:space-y-0 md:space-x-12 md:px-12"
-  >
-    <div
-      class="flex w-full flex-col space-y-4 text-center md:w-2/5 md:text-left"
-    >
-      <div class="w-full text-lg font-extrabold md:w-fit md:text-left">
-        <span class="text-violet-500">Unique</span>
-        <span class="dark:text-slate-400">Fund</span>
-      </div>
-      <p class="text-sm text-slate-600">
-        UniqueFund provides access to fast and reliable financing solutions for
-        SMEs.
-      </p>
+{% load i18n %}
+
+<footer class="pt-20 bg-gray-800 text-gray-400">
+    <div class="container">
+        <div class="grid md:grid-cols-12 gap-9">
+            <div class="col-span-5">
+                <a href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>
+                <div class="mt-5 text-sm">
+                    {{ event.footer_text | safe }}
+                </div>
+
+            </div>
+            <div class="col-span-3">
+                <ul>
+                    <li><a href="#partners" class="hover:text-white">{% trans "Partners" %}</a></li>
+                    <li><a href="#about" class="hover:text-white">{% trans "About" %}</a></li>
+                    <li><a href="#speakers" class="hover:text-white">{% trans "Speakers" %}</a></li>
+                    <li><a href="#plan" class="hover:text-white">{% trans "Plan" %}</a></li>
+                    <li><a href="#join" class="hover:text-white">{% trans "Join" %}</a></li>
+                    <li><a href="#news" class="hover:text-white">{% trans "News" %}</a></li>
+                </ul>
+            </div>
+            <div class="col-span-4">
+                <div class="grid grid-cols-2 mb-7">
+                    <div>
+                        <span class="block text-4xl font-bold text-white">{{ event.date_start|date:'d' }}</span>
+                        <span class="font-bold">{{ event.start_month_short_name }} {{ event.date_start|date:'Y' }}</span>
+                    </div>
+                    <div>
+                        {{ event.place }}, {{ event.address }}, <br>
+                        {{ event.city }}
+                    </div>
+                </div>
+                <div class="text-2xl font-bold mb-3 text-white">Social media</div>
+                <ul class="flex">
+                    {% if event.facebook_link %}
+                        <li>
+                            <a href="{{ event.facebook_link }}" target="_blank">
+                                Facebook
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.youtube_link %}
+                        <li>
+                            <a href="{{ event.youtube_link }}" target="_blank">
+                                Youtube
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.x_link %}
+                        <li>
+                            <a href="{{ event.x_link }}" target="_blank">
+                                Twitter
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.instagram_link %}
+                        <li>
+                            <a href="{{ event.instagram_link }}" target="_blank">
+                                Instagram
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.tiktok_link %}
+                        <li>
+                            <a href="{{ event.tiktok_link }}" target="_blank">
+                                Tiktok
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-      <div class="text-sm font-semibold">Company</div>
-      <ul class="text-sm">
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            About
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Terms of Service
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Privacy Policy
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Cookie Policy
-          </a>
-        </li>
-      </ul>
+    <div class="bg-gray-900">
+        <div class="container">
+            <div class="text-center py-9 mt-12">
+                {% trans "All rights reserved" %} {% now "Y" %}
+                <a href="{% url 'privacy_policy' %}" target="_blank">{% trans "Privacy policy" %}</a>
+                <span>|</span>
+                <a href="{% url 'regulations' %}" target="_blank">{% trans "Regulations" %}</a>
+                <span>|</span>
+                <a href="#" onclick="CookieConsent.showPreferences();return false;">{% trans "Cookie settings" %}</a>
+            </div>
+        </div>
     </div>
-    <div class="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-      <div class="text-sm font-semibold">Solutions</div>
-      <ul class="text-sm">
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Business Line of Credit
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            SBA Loan
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Revenue Based Financing
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Invoice Factoring
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-      <div class="text-sm font-semibold text-slate-600">Partnership</div>
-      <ul class="text-sm">
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Loan Partner
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Affiliate
-          </a>
-        </li>
-        <li class="pt-3">
-          <a
-            class="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Brand Guideline
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div
-    class="container mx-auto border-t border-slate-200 p-8 text-center text-sm text-slate-600 dark:border-slate-900 md:flex-row md:px-12"
-  >
-    ©
-    
-    2023
-    
-    UniqueFund. All rights reserved.
-  </div>
 </footer>
+
+
+{##}
+{##}
+{##}
+
+
+{##}
+{##}
+{#<section class="block-bottom" id="block-bottom">#}
+{#    <div class="container">#}
+{#        <div class="row row-eq-height borders">#}
+{#            <div class="col-md-4 col-sm-4 col-ms-12 item">#}
+{#                <p class="logo-text">Poznaj potencjalnych kontrahentów#}
+{#                    Nawiąż cenne kontakty biznesowe#}
+{#                    Pozyskaj wiedzę jak pomnażać i inwestować pieniądze</p>#}
+{#            </div>#}
+{#            <div class="col-md-3 col-sm-3 col-ms-12 item hidden-xs hidden-ms">#}
+{#                <ul class="menu-footer clearfix">#}
+{#                    <li><a href="{{ request.scheme }}://{{ request.get_host }}/#about">Konferencja</a></li>#}
+{#                    {% if event.event_speakers.all.count > 0 %}#}
+{#                        <li><a href="{{ request.scheme }}://{{ request.get_host }}/#speakers">Prelegenci</a></li>#}
+{#                    {% endif %}#}
+{#                    {% if event.plan_items.all.count > 0 %}#}
+{#                        <li><a href="{{ request.scheme }}://{{ request.get_host }}/#plan">Plan</a></li>#}
+{#                    {% endif %}#}
+{#                    <li><a href="{{ request.scheme }}://{{ request.get_host }}/#join">Zapisz się</a></li>#}
+{#                    {% if event.event_partners.all.count > 0 %}#}
+{#                        <li><a href="{{ request.scheme }}://{{ request.get_host }}/#sponsors">Partnerzy</a></li>#}
+{#                    {% endif %}#}
+{#                    <li><a href="{% url 'blog' %}">Aktualności</a></li>#}
+{#                </ul>#}
+{#            </div>#}
+{#            <div class="col-md-5 col-sm-5 col-ms-12 item">#}
+{#                <div class="row">#}
+{#                    <div class="col-lg-3 col-sm-12 col-ms-2">#}
+{#                        <div class="date">#}
+
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-9 col-sm-12 col-ms-6 address">#}
+
+{#                    </div>#}
+{#                    <div class="col-lg-12 col-ms-12">#}
+{#                        <h6>Media społecznościowe</h6>#}
+
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}
+{#<footer>#}
+{#    <div class="container">#}
+{#        Wszelkie prawa zastrzeżone {% now "Y" %} &copy;#}
+{#        <span>|</span>#}
+
+{#    </div>#}
+{#</footer>#}

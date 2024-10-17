@@ -3,8 +3,8 @@
 {{ event.name }} - Blog
 {% endblock %}
 {% block content %}
-{% include 'events/partials/_nav.html' %}
-    <div id="blog-page">
+{% include 'events/partials/_nav.html' with bg_color='bg-gray-800' %}
+    <div>
         {% include 'events/sections/_news_list.html' %}
     </div>
     {% include 'events/partials/_footer.html' %}
