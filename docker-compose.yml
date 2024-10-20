@@ -35,6 +35,18 @@ services:
         condition: service_healthy
     networks:
       - internal_network
+  maildev:
+    image: maildev/maildev
+    container_name: smtpdev
+    hostname: smtpdev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - internal_network
+    environment:
+      - "MAILDEV_INCOMING_USER=dev"
+      - "MAILDEV_INCOMING_PASS=123456"
 networks:
   internal_network:
     external: false

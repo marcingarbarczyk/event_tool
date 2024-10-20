@@ -4,7 +4,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from .common import *  # noqa
 
 sentry_sdk.init(
-    dsn='https://ec302189ae0878237d3b3887bd79aa16@o999444.ingest.sentry.io/4505832616689664',
+    dsn='',
     integrations=[DjangoIntegration()],
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.

@@ -13,7 +13,7 @@ from apps.events.views import (
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('registration_create', RegistrationCreateView.as_view(), name='registration_create'),
+    path('registration_create/', RegistrationCreateView.as_view(), name='registration_create'),
     path('registration/<str:unique_code>/', RegistrationDetailView.as_view(), name='registration_detail'),
     path('registration_success/', RegistrationSuccessTemplateView.as_view(), name='registration_success'),
     path('regulations/', RegulationsView.as_view(), name='regulations'),

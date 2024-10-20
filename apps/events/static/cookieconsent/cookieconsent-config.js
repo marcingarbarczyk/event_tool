@@ -67,6 +67,6 @@ CookieConsent.run({
         }
     },
     onConsent: function() {
-        initGoogleTagManager();
+        // initGoogleTagManager();
     }
 });
