@@ -1,0 +1,46 @@
+{% load static thumbnail i18n %}
+
+<section id="news" class="py-20 mt-8">
+    <div class="container">
+        <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center mb-8">
+            {% trans "News" %}
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for n in news %}
+                {% include 'events/components/news_item.html' %}
+            {% endfor %}
+        </div>
+        {% if show_more %}
+            <div class="row">
+                <div class="mt-9 text-center">
+                    <a href="{% url 'blog' %}"
+                       class="bg-pink-500 w-full mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{% trans "More" %}</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="py-4 mt-4">
+                <div class="text-center space-x-0">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1"
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block m-2">&laquo; {% trans "first" %}</a>
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block m-2">{% trans "previous page" %}</a>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block m-2">{% trans "next page" %}</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}"
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block m-2">&raquo; {% trans "last" %}</a>
+                    {% endif %}
+                </div>
+
+                <div class="text-center mt-4">
+                    <span class="text-gray-700">
+                        {% trans "Page" %} {{ page_obj.number }} {% trans "from" %} {{ page_obj.paginator.num_pages }}.
+                    </span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>

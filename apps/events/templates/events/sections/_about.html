@@ -1,0 +1,103 @@
+{% load i18n %}
+<section id="about">
+    <div class="pt-12 sm:pt-20 container">
+        <div class="mx-auto">
+            <div class="text-center">
+                {% if event.plan_items.all.count == 0 %}
+                    <h5>{% trans "THE DETAILED PLAN AND TOPICS OF THE CONFERENCE WILL BE PRESENTED SOON" %}</h5>
+                {% endif %}
+                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 mb-8">
+                    {% trans "About" %}
+                </h2>
+                <div class="mb-8">{{ event.description|safe }}</div>
+
+                <div class="text-xl font-bold">
+                    <i class="fas fa-map-marker text-2xl text-rose-600 mr-2"></i>
+                    {{ event.place }}, {{ event.city }}, {{ event.address }}
+                </div>
+            </div>
+        </div>
+        <div class="pb-12 mt-10 sm:pb-16">
+            <div class="relative">
+                <div class="absolute inset-0 h-1/2"></div>
+                <div class="relative max-w-screen-xl">
+                    <div>
+                        <dl class="sm:grid sm:grid-cols-3">
+                            {% if event.event_counters.all.count > 0 %}
+                                {% for event_counter in event.event_counters.all %}
+
+                                    <div
+                                            class="flex flex-col p-6 text-center border-b border-gray-200 sm:border-0 sm:border-r shadow-md">
+                                        <dt class="order-2 mt-2 text-lg font-medium leading-6"
+                                            id="item-1">
+                                            {{ event_counter.counter.title }}
+                                        </dt>
+                                        <dd class="order-1 text-5xl font-extrabold leading-none text-rose-600" data-counter="{{ event_counter.counter.value }}">
+                                            0
+                                        </dd>
+                                    </div>
+                                {% endfor %}
+                                {% if event.max_registrations %}
+                                    <div
+                                            class="flex flex-col p-6 text-center border-b border-gray-200 sm:border-0 sm:border-r shadow-md">
+                                        <dt class="order-2 mt-2 text-lg font-medium leading-6"
+                                            id="item-1">
+                                            {% trans "Free places" %}
+                                        </dt>
+                                        <dd class="order-1 text-5xl font-extrabold leading-none text-rose-600" data-counter="{{ event.registrations_remaining_count }}">
+                                            0
+                                        </dd>
+                                    </div>
+
+                                {% endif %}
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-16 flex justify-center">{{ event.promo_movie_html|safe }}</div>
+    </div>
+</section>
+
+<script>
+   let startCounting = (element) => {
+        const counter = +element.getAttribute('data-counter');
+        let count = 0;
+        const increment = counter / 200;
+
+        const updateCount = () => {
+            count += increment;
+            if(count < counter) {
+                element.innerText = Math.ceil(count);
+                requestAnimationFrame(updateCount);
+            } else {
+                element.innerText = counter;
+            }
+        };
+
+        updateCount();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const numbers = document.querySelectorAll('[data-counter]');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startCounting(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        numbers.forEach(number => {
+            observer.observe(number);
+        });
+    });
+</script>

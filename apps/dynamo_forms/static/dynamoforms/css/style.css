@@ -1,0 +1,44 @@
+*[data-field-choice]:not([data-field-choice=""]) {
+    display: none;
+}
+
+*[data-field-choice]:not([data-field-choice=""]).active {
+    display: block;
+}
+
+.dynamoform > div {
+        margin-bottom: 20px;
+}
+
+.dynamoform label {
+  font-weight: normal;
+}
+
+.dynamoform .radio input {
+    position: static;
+    margin-right: 10px;
+}
+
+.dynamoform .radio > label {
+    margin-right: 15px;
+}
+
+.dynamoform .checkbox {
+    display: flex;
+    align-items: baseline;
+}
+
+.dynamoform .checkbox label {
+    padding-left: 5px;
+}
+
+.dynamoform .checkbox button {
+    border: none;
+    background: transparent;
+    color: #2e9ad0;
+}
+
+.dynamoform .checkbox input[type="checkbox"] {
+    position: static;
+    margin: 0 10px 0 0;
+}

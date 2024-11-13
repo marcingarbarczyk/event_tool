@@ -1,0 +1,33 @@
+{% load static thumbnail i18n %}
+
+<section id="plan" class="py-20">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                {% trans "Plan" %}
+            </h2>
+            <p>{% trans "Detailed plan of the event" %}</p>
+        </div>
+
+
+        {% include 'events/components/timeline.html' %}
+
+        {% if videos|length > 0 %}
+            <div class="text-center mb-4 mt-8">
+                <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 mb-8">
+                    {% trans "Video" %}
+                </h2>
+            </div>
+            <div class="grid grid-cols-4 gap-4">
+                {% for video in videos %}
+                    <div>
+                        <a href="{{ video.iframe_url }}"
+                           class="glightbox"{% if video.is_vertical %} data-orientation="vertical"{% endif %}>
+                            <img class="lazy" src="{% static 'blank.png' %}" data-src="{% thumbnail video.thumbnail 600x400 %}" alt="{{ video.title }}">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

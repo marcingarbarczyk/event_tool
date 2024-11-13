@@ -1,0 +1,74 @@
+{% load static i18n %}
+<section id="join" class="bg-blue-200 py-10">
+    <div class="container">
+        <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 text-center">
+            {% trans "Join" %}
+        </h2>
+        {% if event.additional_description %}
+            <div class="my-5">
+                {{ event.additional_description|safe }}
+            </div>
+        {% endif %}
+
+        {% if registration_form %}
+            {% if not event.available_places %}
+                <div class="bg-pink-600 text-xl text-white text-center p-4 rounded-lg ml-2 mb-2 text-center">
+                    <i class="fas fa-bell block"></i>
+                    {% trans "No available places" %}
+                </div>
+            {% else %}
+                <form method="post" class="max-w-md mx-auto" action="{% url 'registration_create' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_id" value="{{ event.form.id }}">
+
+                    <div class="mb-4">
+                        <label for="{{ registration_form.name.id_for_label }}"
+                               class="block text-gray-700 text-sm font-bold mb-2">
+                            Name:
+                        </label>
+                        {{ registration_form.name }}
+                        {% if registration_form.name.errors %}
+                            <p class="text-red-500 text-xs italic">{{ registration_form.name.errors }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ registration_form.email.id_for_label }}"
+                               class="block text-gray-700 text-sm font-bold mb-2">
+                            E-mail:
+                        </label>
+                        {{ registration_form.email }}
+                        {% if registration_form.email.errors %}
+                            <p class="text-red-500 text-xs italic">{{ registration_form.email.errors }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ registration_form.phone.id_for_label }}"
+                               class="block text-gray-700 text-sm font-bold mb-2">
+                            Phone:
+                        </label>
+                        {{ registration_form.phone }}
+                        {% if registration_form.phone.errors %}
+                            <p class="text-red-500 text-xs italic">{{ registration_form.phone.errors }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>{{ registration_form.selected_bundle.label_tag }}
+                        {{ registration_form.selected_bundle }}</div>
+                    {% include 'dynamo_forms/form.html' %}
+                    <div class="checkbox">
+                        {{ registration_form.agreement }}
+                        {{ registration_form.agreement.label_tag }}
+                    </div>
+                    <div class="text-center">
+                        <button class="bg-pink-500 w-full mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                type="submit">
+                            {% trans "Send" %}
+                        </button>
+                    </div>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:13
+    container_name: event_tool-postgres
+    hostname: event_tool-postgres
+    volumes:
+      - ./dev/web/initial_db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dev/data/db:/var/lib/postgresql/data
+    env_file:
+      - dev/envs/.env
+    networks:
+      - internal_network
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+  web:
+    image: event_tool:latest.dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dev-event_tool
+    hostname: dev-event_tool
+    command: "sh -c /develop/web/entrypoint.sh"
+    volumes:
+      - .:/app
+      - ./requirements:/requirements
+    ports:
+      - "8080:80"
+    env_file:
+      - dev/envs/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal_network
+  maildev:
+    image: maildev/maildev
+    container_name: smtpdev
+    hostname: smtpdev
+    ports:
+      - "1081:1080"
+      - "1027:1025"
+    networks:
+      - internal_network
+    environment:
+      - "MAILDEV_INCOMING_USER=dev"
+      - "MAILDEV_INCOMING_PASS=123456"
+networks:
+  internal_network:
+    external: false

@@ -1,0 +1,48 @@
+{% load static thumbnail i18n %}
+
+<section id="speakers" class="bg-gray-200">
+    <div class="p-10 container">
+        <div class="text-center mb-4">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10">
+                {% trans "Speakers" %}
+            </h2>
+        </div>
+        <div class="sm:grid grid-cols-2 gap-6 my-10">
+            {% for event_speaker in event.event_speakers.all %}
+                {% include 'events/components/speaker.html' %}
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+{#<section class="speakers parallax" id="speakers"#}
+{#         style="background-image: url({% static 'events/images/parallax-gray.png)' %}">#}
+{#    <h3>{% trans "Speakers" %}</h3>#}
+{#    <div class="container">#}
+{#        <div class="swiper-container row" id="speakers-slider">#}
+{#            <div class="swiper-wrapper">#}
+
+{#                    <div class="col-md-3 col-sm-6 col-ms-6 swiper-slide">#}
+{#                        {% if event_speaker.speaker.image %}#}
+{#                            <img src="{% thumbnail event_speaker.speaker.image 205x205 crop %}"#}
+{#                                 alt="{{ event_speaker.speaker.name }}"/>#}
+{#                        {% else %}#}
+{#                            <img src="{% static 'events/images/default_205.jpg' %}"#}
+{#                                 alt="{{ event_speaker.speaker.name }}">#}
+{#                        {% endif %}#}
+{#                        <div class="name">{{ event_speaker.speaker.name }}</div>#}
+{#                        <div class="descr" style="margin-top: 10px;">#}
+{#                            #}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            <div class="arrows">#}
+{#                <a href="#" class="arrow-left fa fa-chevron-left"></a>#}
+{#                <a href="#" class="arrow-right fa fa-chevron-right"></a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</section>#}

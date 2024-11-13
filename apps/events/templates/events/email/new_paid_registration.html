@@ -1,0 +1,14 @@
+{% extends 'events/email/_base.html' %}
+{% load i18n %}
+{% block content %}
+    New registration:<br>
+    {{ registration.email }}<br>
+    {{ registration.name }}<br>
+    {{ registration.phone }}<br>
+    {{ registration.selected_bundle.name }}<br>
+    Discount code: {{ registration.selected_code_discount.code }}
+    <h5>Poll</h5>
+    {% for answer in answers %}
+        {{ answer.field.label }}: {{ answer.answer }}<br>
+    {% endfor %}
+{% endblock %}

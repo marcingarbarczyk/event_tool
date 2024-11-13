@@ -1,0 +1,59 @@
+<div class="max-w-sm w-full lg:max-w-full lg:flex mx-auto shadow-md">
+    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden lazy"
+         data-bg="{{ event_speaker.speaker.image.url }}"
+         title="Woman holding a mug">
+    </div>
+    <div
+            class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4">
+        <div class="">
+            <p href="#"
+               class="text-gray-900 font-bold text-xl mb-2">{{ event_speaker.speaker.name }}</p>
+            <p class="text-sm text-gray-600">
+                {{ event_speaker.speaker.description|safe }}
+            </p>
+
+            <div class="my-4">
+                <ul class="flex">
+                    {% if event_speaker.speaker.facebook_link %}
+                        <li>
+                            <a href="{{ event_speaker.speaker.facebook_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event_speaker.speaker.youtube_link %}
+                        <li>
+                            <a href="{{ event_speaker.speaker.youtube_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event_speaker.speaker.x_link %}
+                        <li>
+                            <a href="{{ event_speaker.speaker.x_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event_speaker.speaker.instagram_link %}
+                        <li>
+                            <a href="{{ event_speaker.speaker.instagram_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event_speaker.speaker.tiktok_link %}
+                        <li>
+                            <a href="{{ event_speaker.speaker.tiktok_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,13 @@
+{% extends 'events/email/_base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="container my-10">
+    {% blocktrans with event_name=registration.event.name event_date=registration.event.date_start %}
+    You are receiving this email because you signed up for the event: "{{ event_name }}", which will take place on {{ event_date }}.
+    {% endblocktrans %}
+    <br>
+    {% trans "You can verify the payment status by clicking the link below:" %}
+    <br><br>
+    <a href="{{ url }}">{{ url }}</a>
+    </div>
+{% endblock %}

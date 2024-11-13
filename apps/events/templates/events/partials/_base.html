@@ -1,0 +1,194 @@
+{% load static thumbnail compress i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}">
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+
+    {% block meta %}
+
+    {% endblock %}
+
+    <script>
+        const csrf_token = "{{ csrf_token }}";
+        let ad_user_data = 'denied';
+        let ad_personalization = 'denied';
+        let ad_storage = 'denied';
+        let analytics_storage = 'denied';
+
+        function initGoogleTagManager() {
+            if (
+                ad_user_data === 'granted' ||
+                ad_personalization === 'granted' ||
+                ad_storage === 'granted' ||
+                analytics_storage === 'granted'
+            ) {
+                window.dataLayer = window.dataLayer || [];
+
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
+                gtag('consent', 'update', {
+                    'ad_user_data': ad_user_data,
+                    'ad_personalization': ad_personalization,
+                    'ad_storage': ad_storage,
+                    'analytics_storage': analytics_storage,
+                    'wait_for_update': 500,
+                });
+                dataLayer.push({'gtm.start': new Date().getTime(), 'event': 'gtm.js'});
+
+                // Load Tag Manager script.
+                let gtmScript = document.createElement('script');
+                gtmScript.async = true;
+                gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id={{ event.google_tag_manager_id }}';
+                let firstScript = document.getElementsByTagName('script')[0];
+                firstScript.parentNode.insertBefore(gtmScript, firstScript);
+            }
+        }
+
+
+        window.addEventListener('load', function () {
+            document.documentElement.classList.add('cc--darkmode');
+            CookieConsent.run({
+                disablePageInteraction: true,
+                guiOptions: {
+                    consentModal: {
+                        layout: 'bar',
+                        position: 'bottom',
+                        flipButtons: false,
+                        equalWeightButtons: false
+                    },
+                    preferencesModal: {
+                        layout: 'box',
+                        flipButtons: false,
+                        equalWeightButtons: false
+                    }
+                },
+                categories: {
+                    necessary: {
+                        enabled: true,
+                        readOnly: true
+                    },
+                    analytics: {},
+                    ads: {},
+
+                },
+                language: {
+                    default: 'en',
+                    translations: {
+                        en: {
+                            consentModal: {
+                                title: '{% trans "We use cookies" %}',
+                                description: '{% trans "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip." %}',
+                                acceptAllBtn: '{% trans "Accept all" %}',
+                                acceptNecessaryBtn: '{% trans "Reject all" %}',
+                                showPreferencesBtn: '{% trans "Manage Individual preferences" %}'
+                            },
+                            preferencesModal: {
+                                title: '{% trans "Manage cookie preferences" %}',
+                                acceptAllBtn: '{% trans "Accept all" %}',
+                                acceptNecessaryBtn: '{% trans "Reject all" %}',
+                                savePreferencesBtn: '{% trans "Accept current selection" %}',
+                                closeIconLabel: '{% trans "Close modal" %}',
+                                sections: [
+                                    {
+                                        title: '{% trans "Somebody said ... cookies?" %}',
+                                        description: '{% trans "I want one!" %}'
+                                    },
+                                    {
+                                        title: '{% trans "Strictly Necessary cookies" %}',
+                                        description: '{% trans "These cookies are essential for the proper functioning of the website and cannot be disabled." %}',
+                                        linkedCategory: 'necessary'
+                                    },
+                                    {
+                                        title: '{% trans "Performance and Analytics" %}',
+                                        description: '{% trans "These cookies collect information about how you use our website. All of the data is anonymized and cannot be used to identify you." %}',
+                                        linkedCategory: 'analytics'
+                                    },
+                                    {
+                                        title: '{% trans "More information" %}',
+                                        description: '{% trans "For any queries in relation to my policy on cookies and your choices, please <a href=\"#contact-page\">contact us</a>" %}'
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                onConsent: function () {
+                    {% if event.google_tag_manager_id %}
+                        initGoogleTagManager();
+                    {% endif %}
+                }
+            });
+        });
+    </script>
+    {% if event.google_tag_manager_id %}
+        <script type="text/plain" data-service="Google" data-category="ads">
+            ad_user_data = 'granted';
+            ad_personalization = 'granted';
+            ad_storage = 'granted';
+        </script>
+        <script type="text/plain" data-service="Google" data-category="analytics">
+            analytics_storage = 'granted';
+        </script>
+    {% endif %}
+
+    {% for event_script in event.event_scripts.all %}
+        <script type="text/plain" data-category="{{ event_script.script.script_type }}"
+                data-service="{{ event_script.script.service }}">
+        {{ event_script.script.code | safe }}
+
+
+
+        </script>
+    {% endfor %}
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+{% compress js %}
+    <script src="{% static 'cookieconsent/cookieconsent.umd.js' %}"></script>
+    <script src="{% static 'cookieconsent/cookieconsent-config.js' %}"></script>
+    <script src="{% static 'js/glightbox.min.js' %}"></script>
+    <script src="{% static 'lazyload.min.js' %}"></script>
+    <script>
+        const lightbox = GLightbox({selector: '.glightbox'});
+
+        lightbox.on('slide_changed', ({current}) => {
+            const gslideMedia = document.querySelector('.current .gslide-media');
+
+            if (gslideMedia) {
+                gslideMedia.classList.remove('vertical-video');
+
+                const {trigger} = current;
+                if (trigger && trigger.getAttribute('data-orientation') === 'vertical') {
+                    gslideMedia.classList.add('vertical-video');
+                }
+            }
+        });
+        const lazyLoadInstance = new LazyLoad({
+            elements_selector: '.lazy',
+        });
+    </script>
+{% endcompress %}
+
+
+</body>
+</html>

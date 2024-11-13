@@ -1,0 +1,115 @@
+<script>
+    class DynamoForm {
+        constructor(element) {
+            this.initializeElements(element);
+            this.addEventListeners();
+            this.showVisibleSections();
+        }
+
+        initializeElements(element) {
+            this.form = element;
+            this.sections = this.form.querySelectorAll('.dynamoform-section');
+            this.radioButtons = this.form.querySelectorAll('input[type="radio"]');
+            this.radioButtons.forEach(button => {
+                if (button.checked) {
+                    this.handleRadioButtonChange({ target: button });
+                }
+            });
+        }
+
+        addEventListeners() {
+            this.radioButtons.forEach(button => {
+                button.addEventListener('change', this.handleRadioButtonChange.bind(this));
+            });
+        }
+
+        handleRadioButtonChange(event) {
+            let targetSection = event.target.name;
+            let choiceId = event.target.value;
+            this.hideSections(targetSection, choiceId);
+        }
+
+        hideSections(targetSection, choiceId) {
+            let sections = this.form.querySelectorAll(`[data-field="${targetSection}"]`);
+            sections.forEach(section => {
+                section.classList.add('hidden');
+                let formControls = section.querySelectorAll('input.required, select.required');
+                if (section.dataset.fieldChoice === choiceId) {
+                    section.classList.remove('hidden');
+                    this.setRequiredAttribute(formControls, true);
+                } else {
+                    this.setRequiredAttribute(formControls, false);
+                }
+            });
+        }
+
+        setRequiredAttribute(controls, isRequired) {
+            controls.forEach(control => {
+                if (isRequired) {
+                    control.setAttribute('required', 'required');
+                } else {
+                    control.removeAttribute('required');
+                }
+            });
+        }
+
+        showVisibleSections() {
+            this.sections.forEach(section => {
+                if (!section.dataset.fieldChoice) {
+                    section.classList.remove('hidden');
+                } else {
+                    let formControls = section.querySelectorAll('input.required, select.required');
+                    this.setRequiredAttribute(formControls, false);
+                }
+            });
+        }
+    }
+
+    window.addEventListener('load', () => {
+        const form = document.querySelector('form');
+        if (form) {
+            new DynamoForm(form);
+        }
+    });
+</script>
+
+{% for section in event.form.sections.all %}
+    {% if section.is_active %}
+        <div class="dynamoform-section mb-8 hidden" data-field="{{ section.field_choice.field.name }}"
+             data-field-choice="{% if section.field_choice %}{{ section.field_choice.id }}{% endif %}">
+            {% if section.name %}
+                <h5 class="text-2xl">{{ section.name }}</h5>
+            {% endif %}
+            {% for field in section.fields.all %}
+                {% if field.is_active %}
+                    <div>
+                        <label for="{{ field.name }}_label" class="{% if field.required %}required{% endif %}">
+                            {{ field.label }}
+                            {% if field.required %}
+                                *
+                            {% endif %}
+                            :
+                        </label>
+                        {% if field.field_type == 'radio' %}
+                            <div class="radio">
+                                {% for choice in field.choices.all %}
+                                    {% if choice.is_active %}
+                                        <label>
+                                            <input type="radio" name="{{ field.name }}" value="{{ choice.id }}"
+                                                   {% if field.required %}class="required" required{% endif %}>
+                                            {{ choice.choice }}
+                                        </label>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% elif field.field_type == 'text' %}
+                            <input class="form-control {% if field.required %}required{% endif %}" type="text" maxlength="200"
+                                   id="{{ field.name }}_label" name="{{ field.name }}"
+                                   {% if field.required %}required{% endif %}/>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}

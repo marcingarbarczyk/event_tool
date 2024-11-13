@@ -1,0 +1,87 @@
+{% load i18n %}
+
+<footer class="pt-20 bg-gray-800 text-gray-400">
+    <div class="container">
+        <div class="grid md:grid-cols-12 gap-9">
+            <div class="col-span-5">
+                <a href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>
+                <div class="mt-5 text-sm">
+                    {{ event.footer_text | safe }}
+                </div>
+
+            </div>
+            <div class="col-span-3">
+                <ul>
+                    <li><a href="#partners" class="hover:text-white">{% trans "Partners" %}</a></li>
+                    <li><a href="#about" class="hover:text-white">{% trans "About" %}</a></li>
+                    <li><a href="#speakers" class="hover:text-white">{% trans "Speakers" %}</a></li>
+                    <li><a href="#plan" class="hover:text-white">{% trans "Plan" %}</a></li>
+                    <li><a href="#join" class="hover:text-white">{% trans "Join" %}</a></li>
+                    <li><a href="#news" class="hover:text-white">{% trans "News" %}</a></li>
+                </ul>
+            </div>
+            <div class="col-span-4">
+                <div class="grid grid-cols-2 mb-7">
+                    <div>
+                        <span class="block text-4xl font-bold text-white">{{ event.date_start|date:'d' }}</span>
+                        <span class="font-bold">{{ event.start_month_short_name }} {{ event.date_start|date:'Y' }}</span>
+                    </div>
+                    <div>
+                        {{ event.place }}, {{ event.address }}, <br>
+                        {{ event.city }}
+                    </div>
+                </div>
+                <div class="text-2xl font-bold mb-6 text-white">Social media</div>
+                <ul class="flex">
+                    {% if event.facebook_link %}
+                        <li>
+                            <a href="{{ event.facebook_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.youtube_link %}
+                        <li>
+                            <a href="{{ event.youtube_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.x_link %}
+                        <li>
+                            <a href="{{ event.x_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.instagram_link %}
+                        <li>
+                            <a href="{{ event.instagram_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if event.tiktok_link %}
+                        <li>
+                            <a href="{{ event.tiktok_link }}" target="_blank" class="text-white-600 border border-white-600 p-3 rounded-full hover:text-white-800 hover:border-white-800 mx-2">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-900">
+        <div class="container">
+            <div class="text-center py-9 mt-12">
+                {% trans "All rights reserved" %} {% now "Y" %}
+                <a href="{% url 'privacy_policy' %}" target="_blank">{% trans "Privacy policy" %}</a>
+                <span>|</span>
+                <a href="{% url 'regulations' %}" target="_blank">{% trans "Regulations" %}</a>
+                <span>|</span>
+                <a href="#" onclick="CookieConsent.showPreferences();return false;">{% trans "Cookie settings" %}</a>
+            </div>
+        </div>
+    </div>
+</footer>

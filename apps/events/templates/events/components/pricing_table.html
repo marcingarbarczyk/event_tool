@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="bundle flex flex-col items-center shadow-md p-8 w-full sm:w-96 mx-3 mb-4 {% if bundle.is_featured %}border-2 border-yellow-400 bg-yellow-50{% endif %}">
+    <div class="">
+        <h2 class="font-extrabold text-3xl text-center mb-2">{{ bundle.name }}</h2>
+        <div class="text-7xl font-bold my-4 text-center">{{ bundle.active_price.price|floatformat }} {% trans "$" %}</div>
+{#        sprawdzić tu czy dobrze TODO #}
+    </div>
+    {{ bundle.description | safe }}
+    <div class="w-full mt-4">
+        <a href="#join" class="block p-2.5 text-center rounded-md bg-pink-600 text-white">Join</a>
+    </div>
+</div>

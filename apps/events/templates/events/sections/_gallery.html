@@ -1,0 +1,20 @@
+{% load static thumbnail i18n %}
+<section>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="text-3xl font-extrabold leading-9 sm:text-4xl sm:leading-10 mb-8">
+                {% trans "Previous events" %}
+            </h2>
+        </div>
+        <div class="grid grid-cols-4 gap-4">
+            {% for p in photos %}
+                <div>
+                    <a href="{{ p.image.url }}" class="glightbox">
+                        <img class="lazy" src="{% static 'blank.png' %}" data-src="{% thumbnail p.image 300x300 crop %}" alt="Gallery">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>

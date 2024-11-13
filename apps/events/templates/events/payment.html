@@ -1,0 +1,28 @@
+{% extends 'events/partials/_base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="container my-10">
+        <h1 class="text-5xl mb-5">{% trans "Summary" %}</h1>
+        {% trans "Event Name" %}: {{ registration.event.name }}<br>
+        {% trans "Event Date" %}: {{ registration.event.date_start }}<br>
+        {% if registration.selected_bundle %}
+            {% trans "Selected Bundle" %}: {{ registration.selected_bundle.name }}<br><br>
+            <div class="text-right text-4xl">{% trans "Amount Due" %}: {{ price }} zł</div>
+        {% endif %}
+        <br>
+
+        {% if not registration.is_paid %}
+            <form method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                {{ form.as_p }}
+                <p>
+                    <button class="bg-pink-500 w-full mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">{% trans "Pay" %}</button>
+                </p>
+            </form>
+        {% else %}
+            <div class="alert alert-success">
+                <p>{% trans "The event has been paid for" %}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

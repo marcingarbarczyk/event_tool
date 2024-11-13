@@ -1,0 +1,44 @@
+{% extends 'events/partials/_base.html' %}
+{% load thumbnail %}
+{% block title %}
+{{ news.title }} - {{ event.name }}
+{% endblock %}
+{% block meta %}
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ news.title }}"/>
+    <meta name="description"
+          content="{{ news.entry|striptags }}"/>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:title" content="{{ news.title }}"/>
+    <meta property="og:description"
+          content="{{ news.entry|striptags }}"/>
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% thumbnail news.image 600x400 %}"/>
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="twitter:title" content="{{ news.title }}"/>
+    <meta property="twitter:description"
+          content="{{ news.entry|striptags }}"/>
+    <meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% thumbnail news.image 600x400 %}"/>
+{% endblock %}
+{% block content %}
+
+    {% include 'events/partials/_nav.html' with bg_color='bg-gray-800' %}
+
+    <div class="container py-20 mt-8">
+        {% if news.image %}
+            <img class="float-right ml-4 mb-4" src="{% thumbnail news.image 600x400 %}" alt="">
+        {% endif %}
+        <h1 class="text-4xl font-bold mb-4">{{ news.title }}</h1>
+        <div class="rich-text-container">
+            {{ news.entry|safe }}
+            {{ news.description|safe }}
+        </div>
+    </div>
+
+    {% include 'events/partials/_footer.html' %}
+{% endblock %}

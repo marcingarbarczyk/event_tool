@@ -1,0 +1,45 @@
+{% load static i18n %}
+
+
+<!-- Navigation -->
+<nav class="py-4 absolute w-full top-0 {{ bg_color }}">
+    <div class="container flex justify-between items-center">
+
+        <!-- Logo -->
+        <div class="text-2xl font-bold">
+            <a href="/"><img src="{{ event.logo.url }}" alt="Logo"></a>
+        </div>
+
+        <!-- Menu Toggle for mobile -->
+        <div class="md:hidden">
+            <button id="menu-btn" class="text-white">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu Items -->
+        <div id="menu" class="hidden md:flex">
+            <ul class="space-x-6 text-white flex">
+                <li><a href="#partners" class="hover:text-rose-600">{% trans "Partners" %}</a></li>
+                <li><a href="#about" class="hover:text-rose-600">{% trans "About" %}</a></li>
+                <li><a href="#speakers" class="hover:text-rose-600">{% trans "Speakers" %}</a></li>
+                <li><a href="#plan" class="hover:text-rose-600">{% trans "Plan" %}</a></li>
+                <li><a href="#join" class="hover:text-rose-600">{% trans "Join" %}</a></li>
+                <li><a href="#news" class="hover:text-rose-600">{% trans "News" %}</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+
+    menuBtn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+</script>
