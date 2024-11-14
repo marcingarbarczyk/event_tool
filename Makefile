@@ -1,5 +1,5 @@
 build:
-	sudo docker compose build web
+	sudo docker compose build web && npm install
 
 build-no-cache:
 	sudo docker compose build web --no-cache
